@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}New quote{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('quote.index') }}">Back to quote list</a>
+    <form method="post">
+        <label for="message_id">message_id</label>
+        <input name="message_id" id="message_id" value="{{ request.form['message_id'] }}">
+        <label for="text">Text</label>
+        <textarea name="text" id="text" required>{{ request.form['text'] }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}
