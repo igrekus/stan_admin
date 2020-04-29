@@ -5,10 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div>{{ quote['message_id'] }}</div>
-
-    <div>{{ request.form['message_id'] }}</div>
-
+    <a href="{{ url_for('quote.index') }}">Back to quote list</a>
     <form method="post">
         <label for="message_id">message_id</label>
         <input name="message_id" id="message_id"
