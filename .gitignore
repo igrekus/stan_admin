@@ -154,6 +154,8 @@ fabric.properties
 
 \.idea/
 
+node_modules/
+
 data/
 
 ref/
@@ -164,3 +166,15 @@ pic/
 creds.json
 quotes.json
 quotes.db
+
+app/static/httpVueLoader.js
+
+app/static/vue.js
+
+app/static/vuetify.css
+
+app/static/vuetify.css.map
+
+app/static/vuetify.js
+
+app/static/vuetify.js.map
