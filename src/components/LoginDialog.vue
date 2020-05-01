@@ -17,7 +17,7 @@
             >
               Wrong login/pass.
             </v-alert>
-            <v-form>
+            <v-form @submit="onLoginClicked" @keyup.native.enter="onLoginClicked">
               <v-text-field id="login" placeholder="Login" name="login" prepend-icon="person" type="text"
                             v-model="login"></v-text-field>
 
@@ -27,7 +27,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onLoginClicked">Login</v-btn>
+            <v-btn color="primary" text type="submit" @click="onLoginClicked">Login</v-btn>
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
