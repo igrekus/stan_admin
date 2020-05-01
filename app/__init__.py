@@ -1,8 +1,10 @@
 import os
 
 from flask import Flask, redirect, url_for, g, render_template, flash
+from flask_restful import Api
 
 from . import db
+from .api_endpoints import ApiPing, Login, LoggedUser
 
 
 def create_app(test_config=None):
@@ -46,4 +48,8 @@ def create_app(test_config=None):
     from . import quote
     app.register_blueprint(quote.bp)
 
+    api = Api(app)
+    api.add_resource(ApiPing, '/api')
+    api.add_resource(Login, '/api/login')
+    api.add_resource(LoggedUser, '/api/logged')
     return app
