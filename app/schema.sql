@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS tg_user;
+DROP TABLE IF EXISTS tg_permits;
+DROP TABLE IF EXISTS tg_user_permits;
 
 CREATE TABLE user
 (
@@ -13,7 +15,26 @@ CREATE TABLE user
 CREATE TABLE tg_user
 (
     id       INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    first_name TEXT UNIQUE NOT NULL,
-    last_name TEXT UNIQUE NOT NULL
+    tg_id    INTEGER UNIQUE NOT NULL,
+    username TEXT,
+    first_name TEXT,
+    last_name TEXT
 );
+
+CREATE TABLE tg_permits
+(
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    title     TEXT NOT NULL
+);
+
+CREATE TABLE tg_user_permits
+(
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    tg_user   INTEGER NOT NULL,
+    tg_permit INTEGER NOT NULL
+);
+
+INSERT INTO tg_permits (title)
+VALUES
+  ('post links'),
+  ('post media')
