@@ -10,6 +10,9 @@
         <label for="message_id">message_id</label>
         <input name="message_id" id="message_id"
                value="{{ quote['message_id'] if quote['message_id'] != 'None' else '' }}">
+        <label for="chat_id">chat_id</label>
+        <input name="chat_id" id="chat_id"
+               value="{{ quote['chat_id'] if quote['chat_id'] != 'None' else '' }}">
         <label for="text">Text</label>
         <textarea name="text" id="text" required>{{ request.form['text'] or quote['text'] }}</textarea>
         <input type="submit" value="Save">

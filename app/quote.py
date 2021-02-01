@@ -12,7 +12,7 @@ bp = Blueprint('quote', __name__, url_prefix='/quote')
 def index():
     db = get_db()
     quotes = db.execute(
-        'SELECT q.id, q.message_id, q.text'
+        'SELECT q.id, q.message_id, q.text, q.chat_id'
         ' FROM quote q'
         ' ORDER BY q.id DESC'
     ).fetchall()
@@ -25,6 +25,7 @@ def create():
     if request.method == 'POST':
         message_id = request.form['message_id']
         text = request.form['text']
+        chat_id = request.form['chat_id']
         error = None
 
         if not text:
@@ -40,9 +41,9 @@ def create():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO quote (message_id, text)'
-                ' VALUES (?, ?)',
-                (message_id if message_id else None, text)
+                'INSERT INTO quote (message_id, text, chat_id)'
+                ' VALUES (?, ?, ?)',
+                (message_id if message_id else None, text, chat_id if chat_id else None)
             )
             db.commit()
             return redirect(url_for('quote.index'))
@@ -58,9 +59,13 @@ def update(id):
     if quote['message_id'] is None:
         quote['message_id'] = ''
 
+    if quote['chat_id'] is None:
+        quote['chat_id'] = ''
+
     if request.method == 'POST':
         message_id = request.form['message_id']
         text = request.form['text']
+        chat_id = request.form['chat_id']
         error = None
 
         if not text:
@@ -70,16 +75,18 @@ def update(id):
                 message_id = int(message_id)
             except ValueError:
                 error = 'message_id should be an int.'
+        if chat_id:
+            try:
+                chat_id = int(chat_id)
+            except ValueError:
+                error = 'chat_id should be an int.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
-            db.execute(
-                'UPDATE quote SET message_id = ?, text = ?'
-                ' WHERE id = ?',
-                (message_id if message_id else None, text, id)
-            )
+            db.execute('UPDATE quote SET message_id = ?, text = ?, chat_id = ?'
+                ' WHERE id = ?', (message_id or None, text, chat_id or None, id))
             db.commit()
             return redirect(url_for('quote.index'))
 
@@ -98,7 +105,7 @@ def delete(id):
 
 def get_quote(id):
     quote = get_db().execute(
-        'SELECT q.id, q.message_id, q.text'
+        'SELECT q.id, q.message_id, q.text, q.chat_id'
         ' FROM quote AS q'
         ' WHERE q.id = ?',
         (id,)

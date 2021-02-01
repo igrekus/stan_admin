@@ -14,6 +14,7 @@
             <tr>
                 <td>{{ quote['id'] }}</td>
                 <td>{{ quote['message_id'] if quote['message_id'] else "" }}</td>
+                <td>{{ quote['chat_id'] if quote['chat_id'] else "" }}</td>
                 <td>{{ quote['text'] }}</td>
                 <td><a class="action" href="{{ url_for('quote.update', id=quote['id']) }}">edit</a></td>
                 <td><button type="button" id="{{ quote['id'] }}" onclick="delete_quote({{ quote['id'] }})">-</button></td>

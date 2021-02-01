@@ -9,6 +9,8 @@
     <form method="post">
         <label for="message_id">message_id</label>
         <input name="message_id" id="message_id" value="{{ request.form['message_id'] }}">
+        <label for="chat_id">chat_id</label>
+        <input name="chat_id" id="chat_id" value="{{ request.form['chat_id'] }}">
         <label for="text">Text</label>
         <textarea name="text" id="text" required>{{ request.form['text'] }}</textarea>
         <input type="submit" value="Save">
